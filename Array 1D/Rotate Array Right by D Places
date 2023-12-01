@@ -23,4 +23,20 @@ class Solution{
     }
 };
 
-//Optimal Approach
+============================================================================================================
+//Optimal Approach==> Reverse n-D elements first then reverse remaining elements and in last reverse whole array
+
+class Solution{
+    public:
+    //Function to rotate an array by d elements in counter-clockwise direction. 
+    void rotateArr(int arr[], int d, int n){
+        // code here
+        d=d%n;
+        
+        reverse(arr,arr+n-d);
+        reverse(arr+n-d,arr+n);
+        
+        reverse(arr,arr+n);
+    }
+};
+
