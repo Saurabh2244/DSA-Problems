@@ -24,72 +24,61 @@ class Solution{
                        First find Pivot then check where our key is lie forward pivot or backward pivot and
                        then apply Binary Search in that specific region
 
-class Solution{
-    public:
+class Solution {
+public:
     
-    //function for find Pivot
-    int findPivot(int A[],int l,int h){
-        int start=l;
-        int end=h;
+    int findPivot(vector<int>&nums,int n){
+        int start=0;
+        int end=n-1;
         int mid=start+(end-start)/2;
-        
+
         while(start<end){
-            if(A[0]<=A[mid]){
+            if(nums[0]<=nums[mid]){
                 start=mid+1;
             }
-            
+
             else{
                 end=mid;
             }
-            
+
             mid=start+(end-start)/2;
         }
-        
         return start;
     }
-    
-    //Binary search function
-    int binarySearch(int A[],int s,int e,int key){
+
+    int binarySearch(vector<int>&nums,int n,int s,int e,int key){
         int start=s;
         int end=e;
         int mid=start+(end-start)/2;
-        
+
         while(start<=end){
-            if(A[mid]==key){
+            if(nums[mid]==key){
                 return mid;
             }
-            
-            else if(A[mid]<key){
+
+            else if(nums[mid]<key){
                 start=mid+1;
             }
-            
+
             else{
                 end=mid-1;
             }
-            
+
             mid=start+(end-start)/2;
         }
-        
         return -1;
     }
-    
-    int search(int A[], int l, int h, int key){
-        // l: The starting index
-        // h: The ending index, you have to search the key in this range
-        
-        //complete the function here
-        
-        int pivot=findPivot(A,l,h);
-        
-        if(A[pivot]<=key && key<=A[h]){
-            return binarySearch(A,pivot,h,key);
+    int search(vector<int>& nums, int target) {
+        int n=nums.size();
+
+        int pivot=findPivot(nums,n);
+
+        if(nums[pivot]<=target && target<=nums[n-1]){
+            return binarySearch(nums,n,pivot,n-1,target);
         }
-        
+
         else{
-            return binarySearch(A,l,pivot-1,key);
+            return binarySearch(nums,n,0,pivot-1,target);
         }
-        
-        return -1;
-        
     }
 };
