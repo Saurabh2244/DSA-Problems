@@ -1,0 +1,62 @@
+// Brutte Force==> Use 2loops and check for each subarray
+
+#include <bits/stdc++.h> 
+int getLongestSubarray(vector<int>& nums, int k){
+    // Write your code here
+    int n=nums.size();
+    int maxLen=0;
+    
+    for(int i=0;i<n;i++){
+        int sum=0;
+        int cnt=0;
+
+        for(int j=i;j<n;j++){
+            sum=sum+nums[j];
+            cnt++;
+
+            if(sum==k){
+                maxLen=max(maxLen,cnt);
+            }
+
+        }
+    }
+
+    return maxLen;
+}
+
+================================================================================================
+
+// Optimal Solution==> Use prefix sum concept and create map of [sum,index]
+
+#include <bits/stdc++.h> 
+int getLongestSubarray(vector<int>& nums, int k){
+    // Write your code here
+    int n=nums.size();
+    unordered_map<int,int>mpp;
+    
+    int sum=0;
+    int maxLen=0;
+    
+    for(int i=0;i<n;i++){
+        sum=sum+nums[i];
+        if(sum==k){
+            maxLen=i+1;
+        }
+
+        int remain=sum-k;
+        if(mpp.find(remain)!=mpp.end()){
+            maxLen=max(maxLen,i-mpp[remain]);
+        }
+
+        if(mpp.find(sum)==mpp.end()){
+            mpp[sum]=i;
+        }
+    }
+
+    return maxLen;
+}
+
+==================================================================================================
+
+Note==> Here both Positive and negative elements so sum is not strictly increasing. Thus we can't use shrinking approach
+        or 2 Pointer i.e. left and right pointer approach
