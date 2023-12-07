@@ -34,11 +34,12 @@ The steps from 3-5 will be inside a loop and the loop will continue until low cr
 ===============================================================================================================
 
 class Solution {
+
 private:
     bool isPossible(vector<int>&bloomDay,int n,int m,int k,int mid){
         int cnt=0;
         int number_of_boquets=0;
-        
+
         for(int i=0;i<n;i++){
             if(bloomDay[i]<=mid){
                 cnt++;
@@ -51,7 +52,7 @@ private:
         }
 
         number_of_boquets+=cnt/k;
-        
+
         if(number_of_boquets<m){
             return false;
         }
@@ -60,12 +61,17 @@ private:
             return true;
         }
     }
+
 public:
     int minDays(vector<int>& bloomDay, int m, int k) {
         int n=bloomDay.size();
+
+        // m==> Number of boquets to be formed
+        // k==> Number of adjacent flowers to be used
+
         int start=*min_element(bloomDay.begin(),bloomDay.end());
         int end=*max_element(bloomDay.begin(),bloomDay.end());
-
+        
         int ans=-1;
         int mid=start+(end-start)/2;
 
