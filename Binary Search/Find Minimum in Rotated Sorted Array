@@ -68,3 +68,33 @@ public:
         return nums[start];
     }
 };
+
+===================================================================================================================
+
+// Best Optimal Solution==>
+
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        int n=nums.size();
+
+        int start=0;
+        int end=n-1;
+
+        while(start<end){
+            int mid=start+(end-start)/2;
+            
+            //we definately says that our minimum element will lie after mid 
+            if(nums[mid]>nums[end]){
+                start=mid+1;
+            }
+
+            //our minimum element will lie before mid
+            else{
+                end=mid;
+            }
+        }
+
+        return nums[start];
+    }
+};
