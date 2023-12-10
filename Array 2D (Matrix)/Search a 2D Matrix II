@@ -27,7 +27,13 @@ public:
 
 ==========================================================================================================================
 
-// Optimal Solution==> Use Binary Search
+// Optimal Solution==> Use Binary Search.
+                       Here matrix is row and col wise sorted. So we can't direct apply Binary Search but
+                       we can find position before which all elements are smaller and below which all elements are greater
+                       i.e. Position is right top corner
+                       if target<position==> then we definately says that our target is not lie below position. So eliminate it
+                       Similarly, eliminate right part
+
 
 class Solution {
 public:
