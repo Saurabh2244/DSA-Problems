@@ -1,1 +1,34 @@
+#include<bits/stdc++.h>
+vector<int> findCommonElements(vector<vector<int>> &mat)
+{
+    // Write your code here
+    vector<int>ans;
+    int row=mat.size();
+    int col=mat[0].size();
+
+    unordered_map<int,int>mpp; //element and index+1
+
+    for(int i=0;i<col;i++){
+        mpp[mat[0][i]]=1;
+    }
+
+    for(int i=1;i<row;i++){
+        for(int j=0;j<col;j++){
+            if(mpp.find(mat[i][j])!=mpp.end()){
+                if(mpp[mat[i][j]]==i){
+                    mpp[mat[i][j]]++;
+                }
+                
+            }
+        }
+    }
+
+    for(auto &x:mpp){
+        if(x.second==row){
+            ans.push_back(x.first);
+        }
+    }
+
+    return ans;
+}
 
