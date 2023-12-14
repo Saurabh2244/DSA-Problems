@@ -11,12 +11,12 @@ void Print(int n){
     if(n==0){
         return;
     }
-    
-    cout<<n<<endl;
-    
+
     //function call
     Print(n-1);
-
+    
+    // process
+    cout<<n<<endl;
 }
 
 int main()
