@@ -1,1 +1,211 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
 
+class Node{
+public:
+    int data;
+    Node *next;
+    
+    Node(int data){
+        this->data=data;
+        this->next=NULL;
+    }
+
+};
+
+void insertAtHead(Node*&head,Node* &tail,int data){
+    
+    //empty
+    if(head==NULL){
+        Node*temp=new Node(data);
+        head=temp;
+        tail=temp;
+        
+        return;
+    }
+    
+    
+    Node*temp=new Node(data);
+    temp->next=head;
+    head=temp;
+    
+    
+}
+
+void insertAtTail(Node* &head,Node* &tail,int data){
+    
+    //empty
+    if(head==NULL){
+        Node*temp=new Node(data);
+        head=temp;
+        tail=temp;
+        
+        return;
+    }
+    
+    Node*temp=new Node(data);
+    tail->next=temp;
+    tail=temp;
+
+
+}
+
+void insertAtPosition(Node*&head,Node*&tail,int position,int data,int &length){
+    
+    if(position<=0 || position>length){
+        cout<<"Position is invalid"<<endl;
+        return;
+    }
+    
+    if(position==1){
+        insertAtHead(head,tail,data);
+        length++;
+        return;
+    }
+    
+    if(position==length){
+        insertAtTail(head,tail,data);
+        length++;
+
+        return;
+    }
+    
+    int cnt=1;
+    Node*temp=head;
+    
+    while(cnt<position-1){
+        temp=temp->next;
+        cnt++;
+    }
+    
+    Node*Temp=new Node(data);
+    Temp->next=temp->next;
+    temp->next=Temp;
+    length++;
+    
+}
+
+int getLength(Node*&head,Node*&tail){
+    int cnt=0;
+    Node*temp=head;
+    
+    while(temp!=NULL){
+        cnt=cnt+1;
+        temp=temp->next;
+    }
+    
+    return cnt;
+}
+
+void delete_from_position(Node* &head, Node*&tail, int position,int &length){
+    
+    if(position<=0 || position>length){
+        cout<<"Enter Position is invalid"<<endl;
+        return;
+    }
+    
+    //handle starting
+    if(position==1){
+        Node*Temp=head;
+        head=Temp->next;
+        
+        Temp->next==NULL;
+        length--;
+        delete Temp;
+        
+        return;
+    }
+    
+    //find one position back
+    Node*temp=head;
+    int cnt=1;
+    while(cnt<position-1){
+        temp=temp->next;
+        cnt++;
+    }
+    
+    //handling tail case
+    if(temp->next->next==NULL){
+        tail=temp;
+        temp->next=NULL;
+        length--;
+
+        return;
+    }
+    
+    //delete node
+    Node *Node_want_to_delete=temp->next;
+    temp->next=Node_want_to_delete->next;
+    
+    Node_want_to_delete->next=NULL;
+    length--;
+
+    delete Node_want_to_delete;
+    
+    return;
+    
+}
+
+void printList(Node* &head,Node*&tail){
+    if(head==NULL){
+        cout<<"Linked list is empty"<<endl;
+    }
+    
+    Node*temp=head;
+    while(temp!=NULL){
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
+
+int main (){
+  
+  Node*head=NULL;
+  Node*tail=NULL;
+  
+  cout<<"Insert At Head: ";
+  insertAtHead(head,tail,1);
+  insertAtHead(head,tail,2);
+  insertAtHead(head,tail,3);
+  insertAtHead(head,tail,4);
+  insertAtHead(head,tail,5);
+  
+  printList(head,tail);
+
+  cout<<endl<<endl;
+
+  cout<<"Insert At Tail: ";
+  insertAtTail(head,tail,1);
+  insertAtTail(head,tail,2);
+  insertAtTail(head,tail,3);
+  insertAtTail(head,tail,4);
+  insertAtTail(head,tail,5);
+  
+  printList(head,tail);
+  
+  cout<<endl<<endl;
+  
+  int length=getLength(head,tail);
+  cout<<"Length is "<<length;
+  
+  cout<<endl<<endl;
+  
+  insertAtPosition(head,tail,5,90,length);
+  printList(head,tail);
+  cout<<endl;
+  cout<<"Length is:"<<length;
+  cout<<endl;
+  
+  cout<<endl;
+  delete_from_position(head,tail,length,length);
+  printList(head,tail);
+  
+  cout<<endl<<endl;
+  cout<<"Head Data: "<<head->data<<endl;
+  cout<<"Tail Data: "<<tail->data<<endl;
+  cout<<"length:"<<length;
+
+
+  return 0;
+}
