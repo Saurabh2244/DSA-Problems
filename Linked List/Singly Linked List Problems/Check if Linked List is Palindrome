@@ -1,0 +1,60 @@
+// Brute Force==> Store linked list into vector. and Now problem become same as given vector is Palindrome or not
+
+
+/*
+struct Node {
+  int data;
+  struct Node *next;
+  Node(int x) {
+    data = x;
+    next = NULL;
+  }
+};
+*/
+#include<bits/stdc++.h>
+class Solution{
+  public:
+    //Function to check whether the list is palindrome.
+    
+    bool isPali(vector<int>&arr){
+        int i=0;
+        int j=arr.size()-1;
+        
+        while(i<=j){
+            if(arr[i]!=arr[j]){
+                return false;
+            }
+            
+            else{
+                i++;
+                j--;
+            }
+        }
+        
+        return true;
+    }
+    
+    bool isPalindrome(Node *head)
+    {
+        //Your code here
+        if(head==NULL || head->next==NULL){
+            return true;
+        }
+        
+        vector<int>arr;
+        
+        Node* temp=head;
+        
+        while(temp!=NULL){
+            arr.push_back(temp->data);
+            temp=temp->next;
+        }
+        
+        return isPali(arr);
+    }
+};
+
+==========================================================================================================================
+
+// Optimal Solution==> Find mid then reverse linked list from mid->next and compare before mid and after mid part
+
