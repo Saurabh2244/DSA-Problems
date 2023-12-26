@@ -80,3 +80,75 @@ class Solution
 
 // Optimal Solution==> Create 3 seprate linked lists and add corresponding data to corresponding list
 
+/*
+ 
+  Node is defined as
+  struct Node {
+    int data;
+    struct Node *next;
+    Node(int x) {
+        data = x;
+        next = NULL;
+    }
+};
+
+*/
+class Solution
+{
+    public:
+    
+    void insertAtTail(Node*&head, Node* &tail, int data){
+        
+        if(head==NULL){
+            Node* temp=new Node(data);
+            head=temp;
+            tail=temp;
+            return;
+        }
+        
+        Node* temp=new Node(data);
+        tail->next=temp;
+        tail=temp;
+    }
+    
+    //Function to sort a linked list of 0s, 1s and 2s.
+    Node* segregate(Node *head) {
+        
+        // Add code here
+        if(head==NULL || head->next==NULL){
+            return head;
+        }
+        
+        Node* zeroHead=NULL;
+        Node* zeroTail=NULL;
+        
+        Node* oneHead=NULL;
+        Node* oneTail=NULL;
+        
+        Node* twoHead=NULL;
+        Node* twoTail=NULL;
+        
+        Node* curr=head;
+        
+        while(curr!=NULL){
+            
+            if(curr->data==0){
+                insertAtTail(zeroHead,zeroTail,curr->data);
+            }
+            
+            else if(curr->data==1){
+                insertAtTail(oneHead,oneTail,curr->data);
+
+            }
+            
+            else{
+                insertAtTail(twoHead,twooTail,curr->data);
+            }
+            
+            curr=curr->next;
+        }
+        
+        
+        
+    }
+};
