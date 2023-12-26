@@ -78,7 +78,105 @@ class Solution
 
 =========================================================================================================================
 
-// Optimal Solution==> Create 3 seprate linked lists and add corresponding data to corresponding list
+// Optimal Solution==> Create 3 seprate linked lists and add corresponding data to corresponding list. Initilised list with -1
+
+/*
+ 
+  Node is defined as
+  struct Node {
+    int data;
+    struct Node *next;
+    Node(int x) {
+        data = x;
+        next = NULL;
+    }
+};
+
+*/
+class Solution
+{
+    public:
+    
+    void insertAtTail(Node*&head, Node* &tail, int data){
+        
+        if(head==NULL){
+            Node* temp=new Node(data);
+            head=temp;
+            tail=temp;
+            return;
+        }
+        
+        Node* temp=new Node(data);
+        tail->next=temp;
+        tail=temp;
+    }
+    
+    //Function to sort a linked list of 0s, 1s and 2s.
+    Node* segregate(Node *head) {
+        
+        // Add code here
+        if(head==NULL || head->next==NULL){
+            return head;
+        }
+        
+        //to avoid multiple if else conditions, we should initially add -1 to list
+        
+        Node* zeroHead=new Node(-1);
+        Node* zeroTail=zeroHead;
+        
+        Node* oneHead=new Node(-1);
+        Node* oneTail=oneHead;
+        
+        Node* twoHead=new Node(-1);
+        Node* twoTail=twoHead;
+        
+        Node* curr=head;
+        
+        while(curr!=NULL){
+            
+            if(curr->data==0){
+                insertAtTail(zeroHead,zeroTail,curr->data);
+            }
+            
+            else if(curr->data==1){
+                insertAtTail(oneHead,oneTail,curr->data);
+
+            }
+            
+            else{
+                insertAtTail(twoHead,twoTail,curr->data);
+            }
+            
+            curr=curr->next;
+        }
+        
+        
+        //merge
+        if(oneHead->next!=NULL){
+            zeroTail->next=oneHead->next;
+        }
+        
+        else{
+            zeroTail->next=twoHead->next;
+        }
+        
+        oneTail->next=twoHead->next;
+        
+        twoTail->next=NULL;
+        
+        head=zeroHead->next;
+        
+        delete zeroHead;
+        delete oneHead;
+        delete twoHead;
+        
+        return head;
+    }
+};
+
+===========================================================================================================================
+
+//Optimal Solution==> Same as previous but intilised output list as NULL
 
 /*
  
@@ -142,13 +240,37 @@ class Solution
             }
             
             else{
-                insertAtTail(twoHead,twooTail,curr->data);
+                insertAtTail(twoHead,twoTail,curr->data);
             }
             
             curr=curr->next;
         }
         
         
+        if(zeroHead!=NULL && oneHead!=NULL){
+            zeroTail->next=oneHead;
+            
+            oneTail->next=twoHead;
+            
+            return zeroHead;
+        }
+        
+        
+        if(zeroHead!=NULL && oneHead==NULL && twoHead!=NULL){
+            zeroTail->next=twoHead;
+            
+            return zeroHead;
+        }
+        
+        if(zeroHead==NULL && oneHead!=NULL){
+            oneTail->next=twoHead;
+            return oneHead;
+        }
+        
+        if(zeroHead==NULL && oneHead==NULL){
+            return twoHead;
+        }
+
         
     }
 };
