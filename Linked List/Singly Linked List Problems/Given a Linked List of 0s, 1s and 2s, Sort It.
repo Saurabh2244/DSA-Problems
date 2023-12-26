@@ -1,0 +1,82 @@
+Brute Force==> Count 0,1 and 2 and then replace LL data by 0, 1 and 2 
+
+/*
+ 
+  Node is defined as
+  struct Node {
+    int data;
+    struct Node *next;
+    Node(int x) {
+        data = x;
+        next = NULL;
+    }
+};
+
+*/
+class Solution
+{
+    public:
+    //Function to sort a linked list of 0s, 1s and 2s.
+    Node* segregate(Node *head) {
+        
+        // Add code here
+        if(head==NULL || head->next==NULL){
+            return head;
+        }
+        
+        int zeroCnt=0;
+        int oneCnt=0;
+        int twoCnt=0;
+        
+        Node* curr=head;
+        
+        while(curr!=NULL){
+            
+            if(curr->data==0){
+                zeroCnt++;
+            }
+            
+            else if(curr->data==1){
+                oneCnt++;
+            }
+            
+            else if(curr->data==2){
+                twoCnt++;
+            }
+            
+            curr=curr->next;
+        }
+        
+        curr=head;
+        
+        while(curr!=NULL){
+            
+            while(zeroCnt>0){
+                curr->data=0;
+                zeroCnt--;
+                curr=curr->next;
+            }
+            
+            while(oneCnt>0){
+                curr->data=1;
+                oneCnt--;
+                curr=curr->next;
+            }
+            
+            while(twoCnt>0){
+                curr->data=2;
+                twoCnt--;
+                curr=curr->next;
+            }
+    
+        }
+        
+        return head;
+        
+    }
+};
+
+=========================================================================================================================
+
+// Optimal Solution==> Create 3 seprate linked lists and add corresponding data to corresponding list
+
