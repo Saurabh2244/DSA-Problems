@@ -1,0 +1,70 @@
+#include <bits/stdc++.h> 
+/*********************************************************
+
+    Following is the class structure of the Node class:
+
+    class Node
+	{
+	public:
+	    int data;
+	    Node *next;
+	    Node *prev;
+	    Node(int data)
+	    {
+	        this->data = data;
+	        this->next = NULL;
+	        this->prev = NULL;
+	    }
+	};
+
+************************************************************/
+int getLength(Node* &head){
+    int cnt=0;
+    Node*curr =head;
+
+    while(curr!=NULL){
+        cnt++;
+        curr=curr->next;
+    }
+
+    return cnt;
+}
+
+Node* solve(Node* &head,int length,int k){
+    //base case
+    if(length==0){
+        return head;
+    }
+
+    Node* curr=head;
+    Node* Prev=NULL;
+    Node* temp=NULL;
+
+    int cnt=0;
+
+    while(curr!=NULL && cnt<k){
+        temp=curr->next;
+        curr->next=Prev;
+        curr->prev=temp;
+
+        Prev=curr;
+        curr=temp;
+
+        cnt++;
+    }
+
+    if(curr!=NULL){
+        head->next=solve(curr,length-k,k);
+    }
+
+    return Prev;
+}
+
+Node* reverseDLLInGroups(Node* head, int k)
+{	
+    // Write your code here. 
+    int length=getLength(head);
+
+    return solve(head,length,k);
+}
+
