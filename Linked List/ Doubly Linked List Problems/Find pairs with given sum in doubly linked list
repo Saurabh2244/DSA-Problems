@@ -157,7 +157,7 @@ vector<pair<int, int>> findPairs(Node* head, int k)
         right=right->next;
     }
 
-    while(left!=right){
+    while(left!=right && right->next!=left){
         int first=left->data;
         int second=right->data;
 
