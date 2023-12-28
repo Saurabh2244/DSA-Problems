@@ -1,0 +1,128 @@
+// Brute Force==> Use 3 loops
+
+#include <bits/stdc++.h> 
+/***************************************
+ 
+    Following is the Node class already written.
+
+    class Node 
+    {
+    public:
+        int data;
+        Node* next;
+        Node* prev;
+
+        Node(int data) 
+        {
+            next = NULL; prev=NULL;
+            this->data = data;
+        }
+
+        ~Node() 
+        {
+            if (next != NULL)
+            {
+                delete next;
+            }
+        }
+    };
+ 
+***************************************/
+
+int countAllTripletSum(Node *head, int x)
+{
+    // Write your code here.
+    int cnt=0;
+    Node*curr=head;
+    while(curr!=NULL){
+        int num1=curr->data;
+
+        Node* run1=curr->next;
+        while(run1!=NULL){
+            int num2=run1->data;
+
+            Node* run2=run1->next;
+            while(run2!=NULL){
+                int num3=run2->data;
+
+                if(num1+num2+num3==x){
+                    cnt++;
+                }
+                run2=run2->next;
+            }
+            run1=run1->next;
+        }
+
+        curr=curr->next;
+    }
+
+    return cnt;
+}
+
+=============================================================================================================================
+=============================================================================================================================
+
+// Better Solution ==> Use map and 2 loops
+
+#include <bits/stdc++.h> 
+/***************************************
+ 
+    Following is the Node class already written.
+
+    class Node 
+    {
+    public:
+        int data;
+        Node* next;
+        Node* prev;
+
+        Node(int data) 
+        {
+            next = NULL; prev=NULL;
+            this->data = data;
+        }
+
+        ~Node() 
+        {
+            if (next != NULL)
+            {
+                delete next;
+            }
+        }
+    };
+ 
+***************************************/
+
+int countAllTripletSum(Node *head, int x)
+{
+    // Write your code here.
+    int cnt=0;
+    Node*curr=head;
+    while(curr!=NULL){
+        set<int>st;
+        int num1=curr->data;
+
+        Node* run1=curr->next;
+        while(run1!=NULL){
+            int num2=run1->data;
+            int remain=x-(num1+num2);
+
+            if(st.find(remain)!=st.end()){
+                cnt++;
+            }
+
+            st.insert(num2);
+
+            run1=run1->next;
+        }
+        curr=curr->next;
+    }
+
+    return cnt;
+}
+
+=============================================================================================================================
+=============================================================================================================================
+
+// Optimal Solution==> Use 1 loop and 2 pointer approach
+
