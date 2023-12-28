@@ -126,3 +126,72 @@ int countAllTripletSum(Node *head, int x)
 
 // Optimal Solution==> Use 1 loop and 2 pointer approach
 
+#include <bits/stdc++.h> 
+/***************************************
+ 
+    Following is the Node class already written.
+
+    class Node 
+    {
+    public:
+        int data;
+        Node* next;
+        Node* prev;
+
+        Node(int data) 
+        {
+            next = NULL; prev=NULL;
+            this->data = data;
+        }
+
+        ~Node() 
+        {
+            if (next != NULL)
+            {
+                delete next;
+            }
+        }
+    };
+ 
+***************************************/
+
+int countAllTripletSum(Node *head, int x)
+{
+    // Write your code here.
+    if(head==NULL){
+        return 0;
+    }
+    int cnt=0;
+    Node*curr=head;
+    Node*Right=head;
+
+    while(Right->next!=NULL){
+        Right=Right->next;
+    }
+
+    while(curr!=NULL){
+        
+        Node*left=curr->next;
+        Node* right=Right;
+
+        while(left!=right && right->next!=left){
+            if(left->data + right->data + curr->data <x){
+                left=left->next;
+            }
+
+            else if(left->data + right->data + curr->data >x){
+                right=right->prev;
+            }
+
+            else{
+                cnt++;
+                left=left->next;
+                right=right->prev;
+            }
+        }
+
+        curr=curr->next;
+    }
+
+    return cnt;
+}
