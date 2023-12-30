@@ -55,6 +55,7 @@ Node*flatMultilevel(Node*&head){
         
        if(temp->bottom!=NULL){
            q.push(temp->bottom);
+           temp->bottom=NULL;
        }
        
         if(temp->next==NULL && !q.empty()){
