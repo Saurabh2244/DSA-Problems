@@ -4,100 +4,111 @@ using namespace std;
 
 class Stack{
     public:
-    
-    //declared variables
-    int top;
     int *arr;
     int size;
+    int top;
     
-    //constructor
     Stack(int size){
         this->size=size;
         top=-1;
         arr=new int[size];
     }
     
-    //functions
-    void push(int element){
+    void pushElm(int elm){
         if(size-top>1){
             top++;
-            arr[top]=element;
+            arr[top]=elm;
         }
         
         else{
             cout<<"Stack is overflow"<<endl;
+            return;
         }
     }
     
-    //pop functions
-    void pop(){
+    int popElm(){
         if(top>=0){
             int ans=arr[top];
             top--;
+            return ans;
         }
         
         else{
-            cout<<"Stack is Underflow"<<endl;
-        }
-    }
-    
-    //find peek
-    int peek(){
-        if(top>=0){
-            return arr[top];
-        }
-        else{
-            cout<<"Stack is empty"<<endl;
+            cout<<"Stack is underflow"<<endl;
             return -1;
         }
     }
     
-    // check empty or not functions
-    bool isEmpty(){
-        if(top==-1){
-            return true;
+    void getTop(){
+        if(top>=0){
+            cout<<"Top Element is "<<arr[top]<<endl;
+            return;
         }
         
         else{
-            return false;
+            cout<<"Stack is empty"<<endl;
+            return;
         }
+    }
+    
+    void isEmpty(){
+        if(top==-1){
+            cout<<"Stack is empty"<<endl;
+        }
+        
+        else{
+            cout<<"Stack is not empty"<<endl;
+        }
+        
+        return;
+    }
+    
+    void printStack(){
+        for(int i=0;i<=top;i++){
+            cout<<arr[i]<<" ";
+        }
+        
+        return;
     }
 };
 
+
 int main()
 {
-    int stackSize = 5; // Set the size of the stack
+    int stackSize;
+    cout << "Enter the size of the stack: ";
+    cin >> stackSize;
 
-    // Create a stack object
     Stack myStack(stackSize);
 
-    // Push elements onto the stack
-    myStack.push(10);
-    myStack.push(20);
-    myStack.push(30);
+    // Example 1: Pushing elements into the stack
+    myStack.pushElm(10);
+    myStack.pushElm(20);
+    myStack.pushElm(30);
 
-    // Display the top element
-    cout << "Top element: " << myStack.peek() << endl;
+    // Example 2: Printing the stack
+    cout << "Stack elements: ";
+    myStack.printStack();
+    cout << endl;
 
-    // Pop an element
-    myStack.pop();
-
-    // Display the top element after popping
-    cout << "Top element after pop: " << myStack.peek() << endl;
-
-    // Check if the stack is empty
-    if (myStack.isEmpty()) {
-        cout << "Stack is empty." << endl;
-    } else {
-        cout << "Stack is not empty." << endl;
+    // Example 3: Popping an element from the stack
+    int poppedElement = myStack.popElm();
+    if (poppedElement != -1)
+    {
+        cout << "Popped Element: " << poppedElement << endl;
     }
 
-    // Pop remaining elements
-    myStack.pop();
-    myStack.pop();
+    // Example 4: Getting the top element of the stack
+    myStack.getTop();
 
-    // Try to pop from an empty stack
-    myStack.pop(); // This will print "Stack is Underflow"
+    // Example 5: Checking if the stack is empty
+    myStack.isEmpty();
+
+    // Example 6: Popping more elements to demonstrate underflow
+    myStack.popElm();
+    myStack.popElm();
+    myStack.popElm(); // This will print Stack is underflow
 
     return 0;
 }
+
