@@ -102,6 +102,45 @@ void deleteMiddle(stack<int>& inputStack, int N){
 =============================================================================================================================
 =============================================================================================================================
 
+// Brute Force==> Use array 
+
+class Solution
+{
+    public:
+    //Function to delete middle element of a stack.
+    void deleteMid(stack<int>&s, int sizeOfStack)
+    {
+        // code here.. 
+        vector<int>store; //store all elements in array
+        while(!s.empty()){
+            store.push_back(s.top());
+            s.pop();
+        }
+        
+        vector<int>ans;//create new array which store all except mid
+        
+        int mid=store.size()/2;
+        
+        for(int i=0;i<store.size();i++){
+            if(i==mid){
+                continue;
+            }
+            
+            ans.push_back(store[i]);
+        }
+        
+        reverse(ans.begin(),ans.end()); //reverse array
+        
+        //again push in stack
+        for(int i=0;i<ans.size();i++){
+            s.push(ans[i]);
+        }
+    }
+};
+
+=============================================================================================================================
+=============================================================================================================================
+
 // Optimal Solution==> Use Recursion. Base case is==> when cnt reach size/2 then remove top and return.
                       After return add top element in stack once
 
