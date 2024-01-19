@@ -27,10 +27,6 @@ bool findPair(int arr[], int size, int n){
 
 // Better Solution==>
 
-
-
-
-
 bool findPair(int arr[], int n, int target){
     //code
     unordered_map<int,int>mpp;
