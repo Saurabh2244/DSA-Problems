@@ -4,82 +4,89 @@
 
 // Brute Force ==> Apply 4 loops and check their individual element sum equals to target or not
 
-#include<bits/stdc++.h>
-vector<vector<int>> fourSum(vector<int>& nums, int target) {
-    // Write your code here
-    int n=nums.size();
-    set<vector<int>>st;
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        set<vector<int>>st;
+        int n=nums.size();
 
-    for(int i=0;i<n;i++){
-        int elm1=nums[i];
+        for(int i=0;i<n;i++){
+            int e1=nums[i];
 
-        for(int j=i+1;j<n;j++){
-            int elm2=nums[j];
+            for(int j=i+1;j<n;j++){
+                int e2=nums[j];
 
-            for(int k=j+1;k<n;k++){
-                int elm3=nums[k];
+                for(int k=j+1;k<n;k++){
+                    int e3=nums[k];
 
-                for(int l=k+1;l<n;l++){
-                    int elm4=nums[l];
+                    for(int l=k+1;l<n;l++){
+                        int e4=nums[l];
 
-                    if(elm1+elm2+elm3+elm4==target){
-                        vector<int>temp={elm1,elm2,elm3,elm4};
-                        sort(temp.begin(),temp.end());
-                        st.insert(temp);
+                        long long sum = static_cast<long long>(e1) + e2 + e3 + e4;
+
+
+                        if(sum==target){
+                            vector<int>temp={e1,e2,e3,e4};
+                            sort(temp.begin(),temp.end());
+                            st.insert(temp);
+                        }
                     }
                 }
             }
         }
-    }
 
-    vector<vector<int>>ans;
-    for(auto &x:st){
-        ans.push_back(x);
-    }
+        vector<vector<int>>ans;
+        for(auto x:st){
+            ans.push_back(x);
+        }
 
-    return ans;
-}
+        return ans;
+    }
+};
 ==============================================================================================================
 
 //Better Approach==> use Hashset and apply "Prfeix Sum" Logic
 
-#include<bits/stdc++.h>
-vector<vector<int>> fourSum(vector<int>& nums, int target) {
-    // Write your code here
-    int n=nums.size();
-    set<vector<int>>st;
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        set<vector<int>>st;
+        int n=nums.size();
 
-    for(int i=0;i<n;i++){
-        int elm1=nums[i];
+        for(int i=0;i<n;i++){
+            int e1=nums[i];
 
-        for(int j=i+1;j<n;j++){
-            int elm2=nums[j];
-            set<int>hashSet;
+            for(int j=i+1;j<n;j++){
+                int e2=nums[j];
 
-            for(int k=j+1;k<n;k++){
-                int elm3=nums[k];
+                set<long long>mpp;
 
-                int remain=target-(elm1+elm2+elm3);
+                for(int k=j+1;k<n;k++){
+                    int e3=nums[k];
 
-                if(hashSet.find(remain)!=hashSet.end()){
-                    vector<int>temp={elm1,elm2,elm3,remain};
-                    sort(temp.begin(),temp.end());
-                    st.insert(temp);
+                    long long e4=target-(static_cast<long long>(e1)+e2+e3);
+
+                    if(mpp.find(e4)!=mpp.end()){
+                        vector<int>temp={e1,e2,e3,(int)(e4)};
+                        sort(temp.begin(),temp.end());
+                        st.insert(temp);
+                    }
+
+                    else{
+                        mpp.insert(e3);
+                    }
                 }
-
-                hashSet.insert(elm3);
             }
         }
+
+        vector<vector<int>>ans;
+        for(auto x:st){
+            ans.push_back(x);
+        }
+
+        return ans;
     }
-
-    vector<vector<int>>ans;
-    for(auto &x:st){
-        ans.push_back(x);
-    }
-
-    return ans;
-}
-
+};
 ================================================================================================================
 
 //Optimal Solution==> Sort array and apply 2 loops and 2 Pointer approach
